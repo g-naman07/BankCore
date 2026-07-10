@@ -1,0 +1,8 @@
+*.o
+*.obj
+*.exe
+*.out
+build/
+bin/
+Debug/
+Release/
