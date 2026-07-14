@@ -11,18 +11,6 @@ Bank Core is an exemplary C++ project that demonstrates a strong, practical comm
 
 The core strength of this project lies in its **justification of technology**. Each feature is powered by a deliberately chosen data structure, and the rationale behind each choice is sound, reflecting an ability to map theoretical knowledge to practical problem-solving. The separation of the core banking logic from the network-facing server and the user-facing client demonstrates a mature understanding of software engineering principles like **separation of concerns**.
 
------
-## 🧠 Project Evolution
-
-This is a complete rewrite of the original [Bank Core](https://github.com/g-naman07/BankCore/ Core.git), which was a CLI-based single-user system.
-
-Key improvements:
-- ✅ Introduced TCP networking for multi-device communication
-- ✅ Added multithreading to handle concurrent client requests
-- ✅ Implemented server-side concurrency safety with mutexes
-
------
-
 ## System Architecture: A Scalable Client-Server Model
 
 The application is architected as a robust client-server model, which is the industry standard for building scalable and distributed systems.
