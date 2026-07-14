@@ -1,0 +1,12 @@
+{
+  "name": "algobank-gateway",
+  "version": "1.0.0",
+  "description": "API Gateway and Web Interface for AlgoBank C++ TCP Server",
+  "main": "gateway.js",
+  "scripts": {
+    "start": "node gateway.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
