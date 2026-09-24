@@ -15,7 +15,7 @@ The core strength of this project lies in its **justification of technology**. E
 
 The application is architected as a robust client-server model, which is the industry standard for building scalable and distributed systems.
 <p align="center">
-  <img src="images/Bank Core_System_Architecture.png"
+  <img src="/images/Bank%20Core_System_Architecture.PNG"
        alt="Bank Core Client-Server Architecture"
        width="850" />
   <br/>
