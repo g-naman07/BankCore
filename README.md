@@ -55,40 +55,80 @@ The selection of data structures is purposeful and optimized for the task at han
 
 -----
 
+## SDET & Reliability Engineering Framework
+
+This project features a dedicated **Software Development Engineer in Test (SDET)** automation suite covering unit testing, memory leak detection, and Python subprocess integration testing.
+
+```
++-------------------------------------------------------------------------------+
+|                       BankCore Reliability & SDET Suite                       |
++-------------------------------------------------------------------------------+
+|  1. C++ Unit Tests     |  2. Memory Safety (ASan)   | 3. Python Pytest Harness |
+|     (tests/test_bankcore.cpp)|    (-fsanitize=address)   |    (tests/test_bankcore_cli.py) |
++-------------------------------------------------------------------------------+
+```
+
+### 1. C++ Unit Testing Suite (`tests/test_bankcore.cpp`)
+- Evaluates core financial calculations, account balance boundaries, and edge cases.
+- Validates data structure invariants (`Trie`, `LRUCache`, `FraudDetector` cycle detection).
+- Execution:
+  ```bash
+  make test
+  ```
+
+### 2. Memory Leak & Safety Analysis (AddressSanitizer / Valgrind)
+- Built with compiler instrumentation (`-fsanitize=address -g`) to ensure zero heap memory leaks, buffer overflows, or use-after-free bugs.
+- Execution:
+  ```bash
+  make test-asan       # Runs AddressSanitizer build
+  make valgrind        # Runs Valgrind memory leak check (Linux/WSL)
+  ```
+
+### 3. Python Pytest Automation Harness (`tests/test_bankcore_cli.py`)
+- Executes the compiled `BankCore` executable via Python `subprocess.Popen`.
+- Simulates interactive CLI menu inputs and asserts exact `stdout` text and process returncodes.
+- Execution:
+  ```bash
+  make pytest
+  # Or directly:
+  pytest -v
+  ```
+
+### 4. One-Click Test Suite Execution
+To run all tests in a single command:
+- **Windows:** `.\run_tests.bat`
+- **Linux/macOS:** `./run_tests.sh`
+
+---
+
 ## How to Build and Run
 
 ### Prerequisites
 
-  * A C++11 (or newer) compatible compiler (g++, Clang, etc.)
-  * `make` (recommended)
-  * **Windows:** MinGW or Visual Studio C++ Build Tools
-  * **Linux/macOS:** `build-essential` or Xcode Command Line Tools
+  * A C++17 compatible compiler (`g++`, `clang++`)
+  * `make`
+  * Python 3.x with `pytest` (`pip install pytest`)
 
-### Compilation (Makefile Recommended)
+### Compilation (Makefile)
 
 Navigate to the project root and execute `make`:
 
 ```bash
-make
+make all
 ```
 
-This will produce two executables: `server` and `client`.
+This will produce executables: `BankCore.exe` (standalone CLI), `server.exe`, `client.exe`, and `unit_tests.exe`.
 
 ### Execution
 
-1.  **Start the Server:** Open a terminal and run the server. It will begin listening for connections on port 8080.
+1. **Standalone CLI Mode (Direct Python / Subprocess Testing):**
+   ```bash
+   ./BankCore.exe
+   ```
 
-    ```bash
-    ./server
-    # On Windows: .\server.exe
-    ```
-
-2.  **Start the Client:** Open a **second terminal** and run the client to connect to the server. You can run multiple instances of the client.
-
-    ```bash
-    ./client
-    # On Windows: .\client.exe
-    ```
+2. **Networked Client-Server Mode:**
+   - Terminal 1: `./server.exe`
+   - Terminal 2: `./client.exe`
 
 -----
 
@@ -186,12 +226,8 @@ Enter name prefix to search: Dav
 
 -----
 
-## Future Enhancements
+## Resume & Interview Highlights (SDET Focus)
 
-This project provides a strong foundation. To evolve it into a production-grade system, the following areas could be addressed:
-
-  * **Database Integration:** The current system state is ephemeral. Integrating a database like **SQLite** or **PostgreSQL** would provide data persistence.
-  * **Fine-Grained Concurrency:** A single global mutex can be a bottleneck. A more advanced approach would be to implement **fine-grained locking** (e.g., a mutex per account) to increase throughput, while carefully managing potential deadlocks.
-  * **API-Driven Design:** The text-based protocol could be evolved into a standard **RESTful API** using a C++ web framework (like `oat++` or `Crow`), decoupling the backend from a specific client implementation.
-  * **Security Hardening:** Implementing **TLS/SSL encryption** for all client-server traffic and performing rigorous server-side input sanitization are critical next steps for security.
-  * **Robust Testing:** Building out a suite of **unit and integration tests** (e.g., with Google Test) and setting up a **CI/CD pipeline** would automate testing and ensure code quality.
+- **C++ Software Reliability:** Engineered unit test suite and memory sanitizer targets (`-fsanitize=address`) catching memory leaks and edge case arithmetic overflow errors.
+- **Cross-Language Automation:** Built Python `pytest` test harness automating C++ binary interactive CLI menu flows via `subprocess.Popen`.
+- **System Concurrency Safety:** Tested multi-threaded TCP server under concurrent client load with critical section synchronization.

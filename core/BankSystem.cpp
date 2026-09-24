@@ -9,7 +9,6 @@ using namespace std;
 BankSystem::BankSystem() : nextAccountId(1001) {
     seedInitialAccounts();
 }
-
 void BankSystem::seedInitialAccounts() {
     int id1 = nextAccountId++;
     accounts[id1] = Account(id1, "Alice", "1234", 1000.0);
